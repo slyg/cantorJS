@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Cantor usage sample</title>
+        <style>
+        	.module {padding: 10px; margin: 10px; float: left;}
+			.module-level-0 {background-color: #eee;}
+			.module-level-1 {width: 200px; height: 200px; background-color: #ccc;}
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+    </head>
+    
+    <body>
+    
+        
+        <div class="module module-level-0">
+        	<h3>Cantor</h3>
+            <p>
+                <button type="submit" onClick="Cantor.start()">Cantor.start()</button>
+                <button type="submit" onClick="Cantor.stop()">Cantor.stop()</button>
+            </p>
+            
+            <div id="module-01" class="module module-level-1">
+                <h3>Module 1</h3>
+                <p>
+                    <button type="submit" class="ask">change mod 2 color</button>
+                    <button type="submit" class="reset">reset my color</button>
+				</p>
+            </div>
+            <div id="module-02" class="module module-level-1">
+                <h3>Module 2</h3>
+                <p>
+                    <button type="submit" class="ask">change mod 2 color</button>
+                    <button type="submit" class="reset">reset my color</button>
+            	</p>
+            </div>
+            
+        </div>
+    
+    	<script src="../cantor.js"></script>
+        <script src="sample.js"></script>
+    </body>
+</html>

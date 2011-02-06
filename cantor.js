@@ -1,7 +1,8 @@
 
 	
 	/*
-	 *	Cantor 0.1 - Javascript toolkit - Provides environnement to manage rich interfaces complexity
+	 *	Cantor - Javascript toolkit - Provides an environnement to manage rich interfaces complexity
+	 *	allowing modularity, loose-coupling and granularity (sandboxed module splitting).
 	 *	@author : syl.faucherand@gmail.com
 	 *	@version : 0.1
 	 */
