@@ -4,38 +4,70 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Cantor usage sample</title>
         <style>
-        	.module {padding: 10px; margin: 10px; float: left;}
-			.module-level-0 {background-color: #eee;}
-			.module-level-1 {width: 200px; height: 200px; background-color: #ccc;}
+		
+        	.module {margin: 10px; float: left; border: 1px solid #aaa; -moz-border-radius: 5px;}
+			.module .content,
+			.module h3 {padding: 10px; margin: 0; font-size: 12px;}
+			
+			.module h3 {-moz-border-radius: 5px 5px 0 0; font: 15px "Trebuchet MS", Arial, Helvetica, sans-serif;}
+			.module .content {-moz-border-radius: 0 0 5px 5px;}
+			
+			.module-scale-0 h3 {background-color: #CCC; color: #FFF;}
+			.module-scale-0 .content {background-color: #EEE; height: 480px;}
+			
+			.module-scale-1 {width: 300px;}
+			.module-scale-1-fullwidth {width: 600px;}
+			.module-scale-1 h3 {background-color: #AFD7FF; color: #000;}
+			.module-scale-1 .content {background-color: #CFE7FF; height: 400px;}
+			
+			.module-scale-2 {width: 200px;}
+			.module-scale-2 h3 {background-color: #CCC;}
+			.module-scale-2 .content {background-color: #FFF; height: 200px;}
+			
+			.green .content {background-color: #E0EFE5;}
+			
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
     </head>
     
     <body>
-    
-        
-        <div class="module module-level-0">
-        	<h3>Cantor</h3>
-            <p>
-                <button type="submit" onClick="Cantor.start()">Cantor.start()</button>
-                <button type="submit" onClick="Cantor.stop()">Cantor.stop()</button>
-            </p>
+      
+        <div class="module module-scale-0">
+        	<h3>cantor.start()</h3>
+            <div class="content">
             
-            <div id="module-01" class="module module-level-1">
-                <h3>Module 1</h3>
-                <p>
-                    <button type="submit" class="ask">change mod 2 color</button>
-                    <button type="submit" class="reset">reset my color</button>
-				</p>
+            	<div id="module-remote" class="module module-scale-1">
+                    <h3>remote rodule</h3>
+                    <div class="content">
+                        <button type="submit" class="start">ask my app to start</button>
+                		<button type="submit" class="stop">ask my app to stop</button>
+                    </div>
+                </div>
+                
+                <div id="my-app" class="module module-scale-1 module-scale-1-fullwidth">
+                    <h3>my app</h3>
+                    <div class="content">
+                        
+                        <div id="module-01" class="module module-scale-2">
+                            <h3>Module 1</h3>
+                            <div class="content">
+                                <button type="submit" class="ask">change mod 2 color</button>
+                                <button type="submit" class="reset">reset my color</button>
+                            </div>
+                        </div>
+                        
+                        <div id="module-02" class="module module-scale-2">
+                            <h3>Module 2</h3>
+                            <div class="content">
+                                <button type="submit" class="ask">change mod 1 color</button>
+                                <button type="submit" class="reset">reset my color</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
             </div>
-            <div id="module-02" class="module module-level-1">
-                <h3>Module 2</h3>
-                <p>
-                    <button type="submit" class="ask">change mod 2 color</button>
-                    <button type="submit" class="reset">reset my color</button>
-            	</p>
-            </div>
-            
         </div>
     
     	<script src="../cantor.js"></script>

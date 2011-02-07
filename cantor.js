@@ -7,7 +7,7 @@
 	 *	@version : 0.1
 	 */
 	
-	var Cantor = (function(){		   
+	var cantor = (function(){		   
 		var 
 			Behaviors = function(){
 				return {
@@ -65,7 +65,7 @@
 					}
 					return result;
 				}
-				var cantor = {
+				return {
 					name : name,
 					uid : (uid !== undefined) ? uid : -1,
 					scale : (scale !== undefined) ? scale : 0, // scale of applicative entity in cantor tree
@@ -91,7 +91,7 @@
 							}
 						;
 						while(len--){make(len);}
-						Cantor.reference.add(this);
+						cantor.reference.add(this);
 						return this;
 					},
 					start : function(cantorName){
@@ -125,10 +125,8 @@
 							for (name in _cantorData){ if (_cantorData.hasOwnProperty(name)){ this.stop(name); } }
 						}
 						return this;
-					}
-				};
-				if(name === 'root'){
-					cantor.reference = (function(){
+					},
+					reference : (function(){
 						var _mess = {};
 						return {
 							getStructure : function(){return _mess;},
@@ -147,9 +145,8 @@
 								_mess[cantor.uid] = cantor;
 							}
 						};
-					}());
-				}
-				return cantor;
+					}())
+				};
 			}
 		;
 		return (new ApplicativeEntity('root'));
