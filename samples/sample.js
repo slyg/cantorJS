@@ -1,8 +1,9 @@
 	
 	/*
 	 *	usage sample
-	 *	two modules registered in Cantor object wich is the base app
-	 *	starting Cantor means starting all its registered modules
+	 *	cantor registers one interface module and one app
+	 *	registered app registers two modules and start/stop them depending on interface module
+	 *	
 	 */
 	
 	(function(){
