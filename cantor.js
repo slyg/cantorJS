@@ -42,8 +42,7 @@
 					return {
 						notify : function(listenerName, datas){ behaviors.exec(listenerName, datas); return this; },
 						listen : function(listenerName, callback){ behaviors.add(listenerName, cantorName, callback); return this; },
-						stoplistening : function(listenerName){ behaviors.remove(listenerName, cantorName); return this; },
-						toolkit : {}
+						stoplistening : function(listenerName){ behaviors.remove(listenerName, cantorName); return this; }
 					};
 				};
 			},
