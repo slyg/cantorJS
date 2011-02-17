@@ -8,6 +8,8 @@
 	
 	(function(){
 			  
+		/* interface module constructor */ 
+			  
 		function SampleModule(name, elmId, targetName){
 			return {
 				name : name,
@@ -42,6 +44,8 @@
 			mod2 = new SampleModule('module 2', 'module-02', 'module 1')
 		;
 		
+		/* interface type cantor object */
+		
 		var remoteModule = {
 			name : 'remote module',
 			creator : function(sb, cantor){
@@ -64,6 +68,8 @@
 			}
 			
 		}
+		
+		/* application type cantor object */
 		
 		var myApp = {
 			name : 'my app',
