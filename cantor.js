@@ -3,6 +3,7 @@
 	/*
 	 *	Cantor - Javascript toolkit - Provides an environnement to manage rich interfaces complexity
 	 *	allowing modularity, loose-coupling and granularity (sandboxed module splitting).
+	 *	inspired from Nicholas C. Zakas slides 'scalable javascript architecture' http://www.slideshare.net/nzakas/scalable-javascript-application-architecture
 	 *	@author : syl.faucherand@gmail.com
 	 *	@version : 0.1
 	 */
