@@ -73,7 +73,9 @@
 		
 		var myApp = {
 			name : 'my app',
+			type : 'interface',
 			creator : function(sb, cantor){
+				console.log(sb);
 				return {
 					init : function(){
 						cantor.register(mod1, mod2);

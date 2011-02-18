@@ -3,6 +3,8 @@
 	/*
 	 *	Cantor - Javascript toolkit - Provides an environnement to manage rich interfaces complexity
 	 *	allowing modularity, loose-coupling and granularity (sandboxed module splitting).
+	 *	inspired from NCZ Javascript application
+	 *	dependencies : Prototype.js
 	 *	@author : syl.faucherand@gmail.com
 	 *	@version : 0.1
 	 */
@@ -38,15 +40,126 @@
 				};
 			},
 			SandboxConstructor = function(behaviors){
-				return function(cantorName){ // cantor custom events api constructor
-					return {
+				return function(cantorName, cantorType){ // cantor custom events api constructor
+					var sandbox = {
 						notify : function(listenerName, datas){ behaviors.exec(listenerName, datas); return this; },
 						listen : function(listenerName, callback){ behaviors.add(listenerName, cantorName, callback); return this; },
 						stoplistening : function(listenerName){ behaviors.remove(listenerName, cantorName); return this; }
 					};
+					
+					if(cantorType !== undefined){
+						
+						// lets add a specific toolkit
+						var toolkit = {};
+						
+						if (cantorType !== "module"){
+							
+							toolkit["addCustomEvents"] = function(events){
+								var 
+									eventsName = Object.keys(events) || []
+								;
+								for (var i = 0, len = eventsName.length; i < len; i++){
+									var eventName = eventsName[i];
+									methods.listen(eventName, events[eventName]);
+								}
+							};
+						}
+							
+						if (cantorType === "interface"){
+							
+							toolkit["delegateEvents"] = function(e, handleEvent){
+									
+								var event = e || window.event;
+								
+								// Get Arrays Intersection to find an action 
+								// associated to one of targetElm className
+								var 
+									keys = Object.keys(handleEvent || {}),
+									elm = event.target,
+									classNames = elm.className.split(" ")
+								;
+		
+								// Get Actions associated to domElement
+								classNames = classNames.intersect(keys) || [];
+								if (!classNames.length) {
+									for (var i=0, max=3; (i < max && !classNames.length); i++) {
+										elm = elm.up();
+										classNames = elm.className.split(" ");
+										classNames = classNames.intersect(keys) || [];
+									}
+								}
+								
+								if (!classNames.length){
+									return false;
+								}
+								
+								for (var i=0, len=classNames.length; i<len; i++){
+									var
+										className = classNames[i],
+										callback = handleEvent[className.toString()] || null
+									;
+									if (typeof callback != "function"){
+										return false;
+									}
+									callback(event, elm);
+								}
+							};
+						
+							// Listen User Interface Events
+							toolkit["addUIListeners"] = function(elm, handleEvent){
+								if (typeof elm == "undefined" || !elm){
+									return false;
+								}
+								
+								var callback = methods.toolkit["delegateEvents"];
+								for (var event in handleEvent){
+									var UIEvents = handleEvent[event] || null;
+									if (!UIEvents || typeof UIEvents != "object"){
+										continue;
+									}
+									
+									if (event.toLowerCase() == "submit"){
+										var forms = elm.getElementsByTagName("form");
+										for (var i=0, len=forms.length; i<len; i++){
+											forms[i].observe(event, function(e){
+												e.preventDefault();
+												callback(e, handleEvent[e.type]);
+											});
+										}
+										return false;
+									}
+									
+									elm.observe(event, function(e){
+										callback(e, handleEvent[e.type]);
+									});
+								}
+							};
+									
+							// Stop Listenning User Interface Events
+							// Remove only methods used in this module
+							toolkit["removeUIListeners"] = function(elm, handleEvent){
+								if (typeof elm == "undefined" || !elm){
+									return false;
+								}
+								var callback = methods.toolkit["delegateEvents"];
+								for (var event in handleEvent){
+									var UIEvents = handleEvent[event] || null;
+									if (!UIEvents || typeof UIEvents != "object"){
+										continue;
+									}
+									elm.stopObserving(event, function(e){callback(e, UIEvents);});
+								}
+							};
+							
+						}
+						
+						sandbox.toolkit = toolkit;
+					}
+						
+					return sandbox;
 				};
 			},
-			ApplicativeEntity = function(name, uid, scale, parent){
+			CantorEntity = function(name, uid, scale, parent){
 				var 
 					_cantorData = {},
 					_behaviors = new Behaviors(),
@@ -75,14 +188,16 @@
 						var 
 							opts = arguments,
 							len = arguments.length,
-							make = function(index){  
+							make = function(index){ 
 								var
 									opt = opts[index],
 									creator = opt.creator,
-									cantorName = opt.name
+									cantorName = opt.name,
+									cantorType = opt.type || undefined
 								;
 								_cantorData[cantorName] = {
 									creator	: creator,
+									type : cantorType,
 									instance : null,
 									uid : Math.floor(Math.random()*1E5),
 									scale : cantor.scale + 1,
@@ -98,7 +213,7 @@
 						if(cantorName !== undefined){
 							var data = _cantorData[cantorName];
 							if(data.instance === null){ // in case cantor already started
-								data.instance = data.creator(new _Sandbox(cantorName), new ApplicativeEntity(cantorName, data.uid, data.scale, data.parent));
+								data.instance = data.creator(new _Sandbox(cantorName, data.type), new CantorEntity(cantorName, data.uid, data.scale, data.parent));
 								data.instance.init();
 							}
 						} else {
@@ -149,6 +264,6 @@
 				};
 			}
 		;
-		return (new ApplicativeEntity('root'));
+		return (new CantorEntity('root'));
 	}());
 	
