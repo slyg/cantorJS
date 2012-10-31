@@ -1,4 +1,4 @@
-
+// haha
 	
 	/*
 	 *	Cantor - Javascript toolkit - Provides an environnement to manage rich interfaces complexity
